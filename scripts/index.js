@@ -27,10 +27,13 @@ cardsCopy.querySelector('.card__image').alt = 'Холмогорский райо
 cardsCopy.querySelector('.card__image').src = 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg';
 cardsCopy.querySelector('.card__image').alt = 'Байкал';
 
-// отображаем на странице
-  //(что тут должно быть).append(cardsCopy);
+  //(что тут должно).append(cardsCopy); .places__list cюда ? 
 
 // @todo: Функция создания карточки
+const button = document.querySelector('button'); 
+button.addEventListener('click', function(){
+
+});
 
 // @todo: Функция удаления карточки
 
