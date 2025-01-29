@@ -1,12 +1,7 @@
 // @todo: Темплейт карточки
 
 const cardTemplate = document.getElementById('card-template');
-console.log(1);
-console.log(cardTemplate);
-
 const content = cardTemplate.content; 
-
-
 
 for (let i = 0; i < initialCards.length; i += 1) {
     console.log(initialCards[i].name);
@@ -14,32 +9,30 @@ for (let i = 0; i < initialCards.length; i += 1) {
     const cardCopy = content.cloneNode(true); 
     cardCopy.querySelector('.card__image').src = initialCards[i].link;
     cardCopy.querySelector('.card__image').alt = initialCards[i].name; 
+    cardCopy.querySelector('.card__title').textContent = initialCards[i].name; 
     const cardList = document.querySelector('.places__list'); 
-    console.log(2);
     console.log(cardList);
     cardList.append(cardCopy);
-    
 }
-
-// Этот цикл работает аналогично методу forEach выше
-
-
 // @todo: DOM узлы
-
-
-// вставляем ссылку и название 
-
-
-  //(что тут должно).append(cardsCopy); .places__list cюда ? 
 
 // @todo: Функция создания карточки
 
-
 // @todo: Функция удаления карточки
 
-const button = document.querySelector('button'); 
-button.addEventListener('click', function(){
-console.log('click');
-});
+const buttons = document.querySelector('card__delete-button'); //выбираем кнопки удаления
+const cardLink = initialCards[i].link; // выбираем ссылки 
+const cardName = initialCards[i].name; // выбираем названия 
+function cardClick(event) {           // что писать вместо event ? 
+    сardLink.remove;                 // функция удаляет карточку, если нажимают на кнопку 
+    cardName.remove; }
+
+buttons.addEventListener('click', function(cardClick) {
+    if (event.target)      // а что записать в if ? 
+    console.log(cardClick);
+ });
+
+ // надо ли после клика removeEventListener('click', cardClick) ? 
+
 
 // @todo: Вывести карточки на страницу
