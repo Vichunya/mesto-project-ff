@@ -10,6 +10,8 @@ for (let i = 0; i < initialCards.length; i += 1) {
     cardCopy.querySelector('.card__image').src = initialCards[i].link;
     cardCopy.querySelector('.card__image').alt = initialCards[i].name; 
     cardCopy.querySelector('.card__title').textContent = initialCards[i].name; 
+    const buttons = cardCopy.querySelector('.card__delete-button'); 
+    buttons.addEventListener('click', cardClick); 
     const cardList = document.querySelector('.places__list'); 
     console.log(cardList);
     cardList.append(cardCopy);
@@ -20,17 +22,17 @@ for (let i = 0; i < initialCards.length; i += 1) {
 
 // @todo: Функция удаления карточки
 
-const buttons = document.querySelector('card__delete-button'); //выбираем кнопки удаления
-const cardLink = initialCards[i].link; // выбираем ссылки 
-const cardName = initialCards[i].name; // выбираем названия 
-function cardClick(event) {           // что писать вместо event ? 
-    сardLink.remove;                 // функция удаляет карточку, если нажимают на кнопку 
-    cardName.remove; }
 
-buttons.addEventListener('click', function(cardClick) {
-    if (event.target)      // а что записать в if ? 
-    console.log(cardClick);
- });
+
+function cardClick(event) {           
+   console.log('CLICK');
+   const listItem = event.target.closest('.places__item');
+   listItem.remove();
+}
+
+
+     
+  
 
  // надо ли после клика removeEventListener('click', cardClick) ? 
 
