@@ -1,40 +1,35 @@
-// @todo: Темплейт карточки
 
 const cardTemplate = document.getElementById('card-template');
-const content = cardTemplate.content; 
+const content = cardTemplate.content;
 
-for (let i = 0; i < initialCards.length; i += 1) {
-    console.log(initialCards[i].name);
-    
-    const cardCopy = content.cloneNode(true); 
-    cardCopy.querySelector('.card__image').src = initialCards[i].link;
-    cardCopy.querySelector('.card__image').alt = initialCards[i].name; 
-    cardCopy.querySelector('.card__title').textContent = initialCards[i].name; 
-    const buttons = cardCopy.querySelector('.card__delete-button'); 
-    buttons.addEventListener('click', cardClick); 
-    const cardList = document.querySelector('.places__list'); 
-    console.log(cardList);
-    cardList.append(cardCopy);
-}
-// @todo: DOM узлы
+function createCard(cardData) {
+    const cardCopy = content.cloneNode(true);
+    const cardImage = cardCopy.querySelector('.card__image');
+    const cardTitle = cardCopy.querySelector('.card__title');
+    const deleteButton = cardCopy.querySelector('.card__delete-button');
 
-// @todo: Функция создания карточки
+    cardImage.src = cardData.link;
+    cardImage.alt = cardData.name;
+    cardTitle.textContent = cardData.name;
 
-// @todo: Функция удаления карточки
+    deleteButton.addEventListener('click', clickDeleteCard);
 
-
-
-function cardClick(event) {           
-   console.log('CLICK');
-   const listItem = event.target.closest('.places__item');
-   listItem.remove();
+    return cardCopy;
 }
 
+initialCards.forEach(cardData => {
+    const card = createCard(cardData);
+    const cardList = document.querySelector('.places__list');
+    cardList.append(card);
+});
 
-     
-  
+function clickDeleteCard(event) {
+    const listItem = event.target.closest('.places__item');
+    listItem.remove();
+}
 
- // надо ли после клика removeEventListener('click', cardClick) ? 
 
 
-// @todo: Вывести карточки на страницу
+
+
+
