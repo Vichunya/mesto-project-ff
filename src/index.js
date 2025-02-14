@@ -28,8 +28,20 @@ function deleteCard(event) {
     listItem.remove();
 }
 
+console.log('Hello, World!')
 
+// теперь картинки можно импортировать,
+// вебпак добавит в переменные правильные пути
+import firstImage from '../images/card_1.jpg';
+import secondImage from '../images/card_2.jpg';
+import thirdImage from '../images/card_3.jpg';
 
+const whoIsTheGoat = [
+  // меняем исходные пути на переменные
+  { name: 'First Image', link: firstImage },
+  { name: 'Second Image', link: secondImage },
+  { name: 'Third Image', link: thirdImage },
+];
 
-
+//import './styles/index.css'; // добавьте импорт главного файла стилей 
 
