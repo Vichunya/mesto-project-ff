@@ -46,3 +46,16 @@ const whoIsTheGoat = [
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
 
 import {initialCards} from './cards.js';
+
+const openModal = document.querySelector('.popup_type_edit');
+const editProfileBtn = document.querySelector('.profile__edit-button');
+console.log(editProfileBtn);
+editProfileBtn.addEventListener('click', function() {
+    openModal.style.display = 'flex';
+});
+
+const closeBtn = openModal.querySelector('.popup__close'); 
+closeBtn.addEventListener('click', function() {
+    openModal.style.display = 'none';
+});
+
