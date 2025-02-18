@@ -72,8 +72,26 @@ window.addEventListener('click', function(event) {
         window.removeEventListener('keydown', checkEscapeBtn);  
     }
 }
-  // Добавляем обработчик при открытии окна//А зачем добавлять отдельно для ESC ?
+  // Добавляем обработчик при открытии окна //А зачем добавлять отдельно для ESC ?
   editProfileBtn.addEventListener('click', function() {
     openModal.style.display = 'flex';
     window.addEventListener('keydown', checkEscapeBtn); 
 });
+
+//модальное окно для кнопки добавления  // тут ошибка 
+const openModalNewCard = document.querySelector('popup_type_new-card');
+const addCardBtn = document.querySelector('.profile__add-button'); //кнопка добавления
+addCardBtn.addEventListener('click', function() {
+    openModalNewCard.style.display = 'flex';
+});
+
+// Лайк, когда внесла лайк в ф-ю создания карточки, они удалились
+// Вообще не работает 
+
+//const likeButton = cardCopy.querySelector('.card__like-button'); кнопка лайка
+//likeButton.addEventListener('click', likeHandler); лайк обработчик
+//function likeHandler(event) {
+   // const likeButton = event.target;  
+   // likeButton.classList.toggle('.card__like-button');  
+//}
+
