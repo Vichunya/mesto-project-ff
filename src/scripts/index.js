@@ -48,7 +48,7 @@ import '../pages/index.css'; // добавьте импорт главного �
 import {initialCards} from './cards.js';
 
 const openModal = document.querySelector('.popup_type_edit');
-const editProfileBtn = document.querySelector('.profile__edit-button');
+const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
 console.log(editProfileBtn);
 editProfileBtn.addEventListener('click', function() {
     openModal.style.display = 'flex';
@@ -58,4 +58,22 @@ const closeBtn = openModal.querySelector('.popup__close');
 closeBtn.addEventListener('click', function() {
     openModal.style.display = 'none';
 });
+// закрытие вне модального окна
+window.addEventListener('click', function(event) {
+    if (event.target === openModal) {
+      openModal.style.display = 'none';
+    }
+  });
 
+  // закрытие по клавише Escape 
+  function checkEscapeBtn(event) {
+    if (event.key === 'Escape') {          // встроенное св-во объекта, какая клавиша нажата
+        openModal.style.display = 'none';
+        window.removeEventListener('keydown', checkEscapeBtn);  
+    }
+}
+  // Добавляем обработчик при открытии окна//А зачем добавлять отдельно для ESC ?
+  editProfileBtn.addEventListener('click', function() {
+    openModal.style.display = 'flex';
+    window.addEventListener('keydown', checkEscapeBtn); 
+});
