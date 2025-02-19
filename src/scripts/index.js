@@ -1,25 +1,31 @@
+import '../pages/index.css'; // добавьте импорт главного файла стилей 
+
+import {initialCards} from './cards.js';
 
 const cardTemplate = document.getElementById('card-template');
 const content = cardTemplate.content;
 const cardList = document.querySelector('.places__list');
 
-function createCard(cardData, deleteHandler) {
+function createCard(cardData, deleteHandler, likeHandler) {
     const cardCopy = content.cloneNode(true);
     const cardImage = cardCopy.querySelector('.card__image');
     const cardTitle = cardCopy.querySelector('.card__title');
     const deleteButton = cardCopy.querySelector('.card__delete-button');
+    const likeButton = cardCopy.querySelector('.card__like-button'); 
 
     cardImage.src = cardData.link;
     cardImage.alt = cardData.name;
     cardTitle.textContent = cardData.name;
 
     deleteButton.addEventListener('click', deleteHandler);
+    likeButton.addEventListener('click', likeHandler); 
+    
 
     return cardCopy;
 }
 
 initialCards.forEach(cardData => {
-    const card = createCard(cardData, deleteCard);
+    const card = createCard(cardData, deleteCard, likeCard);
     cardList.append(card);
 });
 
@@ -28,9 +34,12 @@ function deleteCard(event) {
     listItem.remove();
 }
 
-import '../pages/index.css'; // добавьте импорт главного файла стилей 
+function likeCard(event) {
+    const likeButton = event.target;  
+    likeButton.classList.toggle('card__like-button_is-active');
+ }
 
-import {initialCards} from './cards.js';
+ //'.classList.add('active')'); 
 
 const openModal = document.querySelector('.popup_type_edit');
 const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
@@ -63,20 +72,31 @@ window.addEventListener('click', function(event) {
     window.addEventListener('keydown', checkEscapeBtn); 
 });
 
-//модальное окно для кнопки добавления  // тут ошибка 
-const openModalNewCard = document.querySelector('popup_type_new-card');
+//модальное окно для кнопки добавления  
+const openModalNewCard = document.querySelector('.popup_type_new-card');
 const addCardBtn = document.querySelector('.profile__add-button'); //кнопка добавления
+console.log(addCardBtn);
 addCardBtn.addEventListener('click', function() {
     openModalNewCard.style.display = 'flex';
 });
 
-// Лайк, когда внесла лайк в ф-ю создания карточки, они удалились
-// Вообще не работает 
 
-//const likeButton = cardCopy.querySelector('.card__like-button'); кнопка лайка
-//likeButton.addEventListener('click', likeHandler); лайк обработчик
-//function likeHandler(event) {
-   // const likeButton = event.target;  
-   // likeButton.classList.toggle('.card__like-button');  
-//}
+// Модальное окно для карточки: 
+//.popup_type_image - модальное окно 
+//.card__image - картинка
+//.popup__image - класс картинки в модальном окне  
 
+const modalCard = document.querySelector('.popup_type_image'); // само модальное окно картинки 
+const modalImage = modalCard.querySelector('.popup__image'); // картинка в модальном окне
+
+const images = document.querySelectorAll('.card__image'); // по всем картинкам проходит 
+images.forEach((image)=> {
+    image.addEventListener('click', openModalImage); //внутрь метода положить
+});
+
+function openModalImage(event) {           //открытие модального окна с картинкой
+    const imageSrc = event.target; 
+    console.log(imageSrc.src);
+    modalImage.src = imageSrc.src;
+    modalCard.style.display = 'flex';
+};
