@@ -39,8 +39,6 @@ function likeCard(event) {
     likeButton.classList.toggle('card__like-button_is-active');
  }
 
- //'.classList.add('active')'); 
-
 const openModal = document.querySelector('.popup_type_edit');
 const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
 console.log(editProfileBtn);
@@ -100,3 +98,48 @@ function openModalImage(event) {           //открытие модальног
     modalImage.src = imageSrc.src;
     modalCard.style.display = 'flex';
 };
+
+// ОТКРЫТИЕ 1 и 2 модальных окон
+//const openModal = document.querySelector('.popup_type_edit');
+//const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
+//const openModalNewCard = document.querySelector('.popup_type_new-card');
+//const addCardBtn = document.querySelector('.profile__add-button'); //кнопка добавления
+
+//function openPopup(openModal, openModalNewCard) {
+   // openModal.style.display = 'flex';
+    //openModalNewCard.style.display = 'flex';
+//}
+//editProfileBtn.addEventListener('click', function() {
+   // openPopup(openModal);              // Открытие попапа редактирования
+//}); 
+
+//addCardBtn.addEventListener('click', function() {
+  // openPopup(openModalNewCard);
+//});
+
+
+
+// Находим форму в DOM
+const formElement = document.querySelector('.popup__form');// Воспользуйтесь методом querySelector()
+// Находим поля формы в DOM
+const nameInput = formElement.querySelector('.popup__input_type_name');
+const jobInput = formElement.querySelector('.popup__input_type_description');
+console.log(nameInput);
+
+// Обработчик «отправки» формы, хотя пока
+// она никуда отправляться не будет
+function handleFormSubmit(evt) {
+    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. // Так мы можем определить свою логику отправки.// О том, как это делать, расскажем позже.
+
+    const nameValue = nameInput.value;;// Получите значение полей jobInput и nameInput из свойства value
+    const jobValue = jobInput.value;
+
+   // а куда ? document.querySelector('.');// Выберите элементы, куда должны быть вставлены значения полей
+  //document.querySelector('.');
+  
+    // Вставьте новые значения с помощью textContent
+}
+
+// Прикрепляем обработчик к форме:
+// он будет следить за событием “submit” - «отправка»
+formElement.addEventListener('submit', handleFormSubmit);
