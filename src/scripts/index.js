@@ -46,86 +46,55 @@ function likeCard(event) {
    const imageSrc = event.target; 
    console.log(imageSrc.src);
    modalImage.src = imageSrc.src;
-   modalCard.style.display = 'flex';
+   openPopup(modalCard);
 };
 
-const openModal = document.querySelector('.popup_type_edit');
-const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
-console.log(editProfileBtn);
-editProfileBtn.addEventListener('click', function() {
-    openModal.style.display = 'flex';
+const modals = document.querySelectorAll('.popup');
+modals.forEach(modal => {
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+
+    const closeBtn = modal.querySelector('.popup__close'); 
+    closeBtn.addEventListener('click', function() {
+          modal.style.display = 'none';
+    });
+
 });
 
-const closeBtn = openModal.querySelector('.popup__close'); 
-closeBtn.addEventListener('click', function() {
-    openModal.style.display = 'none';
-});
-// закрытие вне модального окна
-window.addEventListener('click', function(event) {
-    if (event.target === openModal) {
-      openModal.style.display = 'none';
-    }
-  });
+
+
+
 
   // закрытие по клавише Escape 
-  function checkEscapeBtn(event) {
+  function checkEscapeBtn(event, modal) {
     if (event.key === 'Escape') {          // встроенное св-во объекта, какая клавиша нажата
-        openModal.style.display = 'none';
+        modal.style.display = 'none';
         window.removeEventListener('keydown', checkEscapeBtn);  
     }
 }
-  // Добавляем обработчик при открытии окна //А зачем добавлять отдельно для ESC ?
-  editProfileBtn.addEventListener('click', function() {
-    openModal.style.display = 'flex';
-    window.addEventListener('keydown', checkEscapeBtn); 
-});
-
-//модальное окно для кнопки добавления  
-const openModalNewCard = document.querySelector('.popup_type_new-card');
-const addCardBtn = document.querySelector('.profile__add-button'); //кнопка добавления
-console.log(addCardBtn);
-addCardBtn.addEventListener('click', function() {
-    openModalNewCard.style.display = 'flex';
-});
-
-
-// Модальное окно для карточки: 
-//.popup_type_image - модальное окно 
-//.card__image - картинка
-//.popup__image - класс картинки в модальном окне  
-
-//const modalCard = document.querySelector('.popup_type_image'); // само модальное окно картинки 
-//const modalImage = modalCard.querySelector('.popup__image'); // картинка в модальном окне
-
-//const images = document.querySelectorAll('.card__image'); // по всем картинкам проходит 
-//images.forEach((image)=> {
-   // image.addEventListener('click', openModalImage); //внутрь метода положить
-//});
-
-//function openModalImage(event) {           //открытие модального окна с картинкой
-    //const imageSrc = event.target; 
-   // console.log(imageSrc.src);
-   // modalImage.src = imageSrc.src;
-    //modalCard.style.display = 'flex';
-//};
 
 // ОТКРЫТИЕ 1 и 2 модальных окон
-//const openModal = document.querySelector('.popup_type_edit');
-//const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
-//const openModalNewCard = document.querySelector('.popup_type_new-card');
-//const addCardBtn = document.querySelector('.profile__add-button'); //кнопка добавления
+const openModal = document.querySelector('.popup_type_edit');
+const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
+const openModalNewCard = document.querySelector('.popup_type_new-card');
+const addCardBtn = document.querySelector('.profile__add-button'); //кнопка добавления
 
-//function openPopup(openModal, openModalNewCard) {
-   // openModal.style.display = 'flex';
-    //openModalNewCard.style.display = 'flex';
-//}
-//editProfileBtn.addEventListener('click', function() {
-   // openPopup(openModal);              // Открытие попапа редактирования
-//}); 
+function openPopup(modal) {
+   modal.style.display = 'flex';  //modal, переиспользовать можно
+   window.addEventListener('keydown',(event) => {
+    checkEscapeBtn(event,modal);
+   }); 
+}
+editProfileBtn.addEventListener('click', function() {
+   openPopup(openModal);              // Открытие попапа редактирования
+}); 
 
-//addCardBtn.addEventListener('click', function() {
-  // openPopup(openModalNewCard);
-//});
+addCardBtn.addEventListener('click', function() {
+   openPopup(openModalNewCard);
+});
 
 
 
