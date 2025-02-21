@@ -5,27 +5,30 @@ import {initialCards} from './cards.js';
 const cardTemplate = document.getElementById('card-template');
 const content = cardTemplate.content;
 const cardList = document.querySelector('.places__list');
+const modalCard = document.querySelector('.popup_type_image'); // само модальное окно картинки 
+const modalImage = modalCard.querySelector('.popup__image'); // картинка в модальном окне
 
-function createCard(cardData, deleteHandler, likeHandler) {
+function createCard(cardData, deleteHandler, likeHandler, openModalImage) {
     const cardCopy = content.cloneNode(true);
-    const cardImage = cardCopy.querySelector('.card__image');
+    const cardImage = cardCopy.querySelector('.card__image'); //из конкретной карточки
     const cardTitle = cardCopy.querySelector('.card__title');
     const deleteButton = cardCopy.querySelector('.card__delete-button');
     const likeButton = cardCopy.querySelector('.card__like-button'); 
-
+    
     cardImage.src = cardData.link;
     cardImage.alt = cardData.name;
     cardTitle.textContent = cardData.name;
 
     deleteButton.addEventListener('click', deleteHandler);
     likeButton.addEventListener('click', likeHandler); 
+    cardImage.addEventListener('click', openModalImage); 
     
 
     return cardCopy;
 }
 
 initialCards.forEach(cardData => {
-    const card = createCard(cardData, deleteCard, likeCard);
+    const card = createCard(cardData, deleteCard, likeCard, openModalImage);
     cardList.append(card);
 });
 
@@ -38,6 +41,13 @@ function likeCard(event) {
     const likeButton = event.target;  
     likeButton.classList.toggle('card__like-button_is-active');
  }
+
+ function openModalImage(event) {           //открытие модального окна с картинкой
+   const imageSrc = event.target; 
+   console.log(imageSrc.src);
+   modalImage.src = imageSrc.src;
+   modalCard.style.display = 'flex';
+};
 
 const openModal = document.querySelector('.popup_type_edit');
 const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
@@ -84,20 +94,20 @@ addCardBtn.addEventListener('click', function() {
 //.card__image - картинка
 //.popup__image - класс картинки в модальном окне  
 
-const modalCard = document.querySelector('.popup_type_image'); // само модальное окно картинки 
-const modalImage = modalCard.querySelector('.popup__image'); // картинка в модальном окне
+//const modalCard = document.querySelector('.popup_type_image'); // само модальное окно картинки 
+//const modalImage = modalCard.querySelector('.popup__image'); // картинка в модальном окне
 
-const images = document.querySelectorAll('.card__image'); // по всем картинкам проходит 
-images.forEach((image)=> {
-    image.addEventListener('click', openModalImage); //внутрь метода положить
-});
+//const images = document.querySelectorAll('.card__image'); // по всем картинкам проходит 
+//images.forEach((image)=> {
+   // image.addEventListener('click', openModalImage); //внутрь метода положить
+//});
 
-function openModalImage(event) {           //открытие модального окна с картинкой
-    const imageSrc = event.target; 
-    console.log(imageSrc.src);
-    modalImage.src = imageSrc.src;
-    modalCard.style.display = 'flex';
-};
+//function openModalImage(event) {           //открытие модального окна с картинкой
+    //const imageSrc = event.target; 
+   // console.log(imageSrc.src);
+   // modalImage.src = imageSrc.src;
+    //modalCard.style.display = 'flex';
+//};
 
 // ОТКРЫТИЕ 1 и 2 модальных окон
 //const openModal = document.querySelector('.popup_type_edit');
@@ -136,7 +146,7 @@ function handleFormSubmit(evt) {
 
    // а куда ? document.querySelector('.');// Выберите элементы, куда должны быть вставлены значения полей
   //document.querySelector('.');
-  
+
     // Вставьте новые значения с помощью textContent
 }
 
