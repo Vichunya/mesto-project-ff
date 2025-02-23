@@ -103,13 +103,17 @@ console.log(nameInput);
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 function handleFormSubmit(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. // Так мы можем определить свою логику отправки.// О том, как это делать, расскажем позже.
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
 
-  const nameValue = nameInput.value;;// Получите значение полей jobInput и nameInput из свойства value
+  const nameValue = nameInput.value;// Получите значение полей jobInput и nameInput из свойства value
   const jobValue = jobInput.value;
 
-  // а куда ? document.querySelector('.');// Выберите элементы, куда должны быть вставлены значения полей
-  //document.querySelector('.');
+  // а куда ? document.querySelector('.popup__input_type_name');// Выберите элементы, куда должны быть вставлены значения полей
+  //document.querySelector('.popup__input_type_description'); УЖЕ ЕСТЬ 
+
+  // Вставляем полученные значения в поля формы
+  nameInput.value = nameValue;  // это одно и тоже что и на 108-109 ?
+  jobInput.value = jobValue;
 
   // Вставьте новые значения с помощью textContent
 }
@@ -117,3 +121,19 @@ function handleFormSubmit(evt) {
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
+
+//ФОРМА ДЛЯ ДОБАВЛЕНИЯ КАРТОЧЕК 
+// const cardNameInput = formElement.querySelector('.popup__input_type_card-name'); //поле названия
+// const cardUrlInput = formElement.querySelector('.popup__input_type_url'); //поле ссылки 
+
+// const cardNameValue = cardNameInput.value; // значение из поля названия 
+// const cardUrlValue = cardUrlInput.value;  //значение из поля ссылки 
+
+//  .textContent // добавить новое значение ? 
+
+//    = cardNameValue; // содержимое будет равным значению, которое введено в поле ввода cardNameInput?
+//    = cardUrlValue; 
+
+// cardList.insertbefore(newCard, cardList.firstChild)
+
+// очистить поле ввода 
