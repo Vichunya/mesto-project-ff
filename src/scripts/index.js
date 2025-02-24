@@ -28,7 +28,7 @@ function createCard(cardData, deleteHandler, likeHandler, openModalImage) {
 }
 
 initialCards.forEach(cardData => {
-  const card = createCard(cardData, deleteCard, likeCard, openModalImage);
+  const card = createCard(cardData, deleteCard, likeCard, openModalImage); //вызов
   cardList.append(card);  //добавляет созданную карточку в контейнер 
 });
 
@@ -83,8 +83,11 @@ const openModal = document.querySelector('.popup_type_edit');
 const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
 const openModalNewCard = document.querySelector('.popup_type_new-card');
 const addCardBtn = document.querySelector('.profile__add-button'); //кнопка добавления
+const nameTitle = document.querySelector('.profile__title');
+const editInputName = document.querySelector('.popup__input_type_name');
 
 editProfileBtn.addEventListener('click', function () {
+  editInputName.value = nameTitle.textContent;
   openPopup(openModal);              // Открытие попапа редактирования
 });
 
@@ -96,26 +99,16 @@ addCardBtn.addEventListener('click', function () {
 // Находим форму в DOM
 const formElement = document.querySelector('.popup__form');// Воспользуйтесь методом querySelector()
 // Находим поля формы в DOM
-const nameInput = formElement.querySelector('.popup__input_type_name');
-const jobInput = formElement.querySelector('.popup__input_type_description');
-console.log(nameInput);
+
+const jobInput = formElement.querySelector('.profile__description');
+
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
-function handleFormSubmit(evt) {
+function handleFormSubmit(evt) { //вызовется при нажатии submit сохранить
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
-
-  const nameValue = nameInput.value;// Получите значение полей jobInput и nameInput из свойства value
-  const jobValue = jobInput.value;
-
-  // а куда ? document.querySelector('.popup__input_type_name');// Выберите элементы, куда должны быть вставлены значения полей
-  //document.querySelector('.popup__input_type_description'); УЖЕ ЕСТЬ 
-
-  // Вставляем полученные значения в поля формы
-  nameInput.value = nameValue;  // это одно и тоже что и на 108-109 ?
-  jobInput.value = jobValue;
-
-  // Вставьте новые значения с помощью textContent
+  nameTitle.textContent = editInputName.value;
+  openModal.style.display = 'none';
 }
 
 // Прикрепляем обработчик к форме:
@@ -126,10 +119,8 @@ formElement.addEventListener('submit', handleFormSubmit);
 // const cardNameInput = formElement.querySelector('.popup__input_type_card-name'); //поле названия
 // const cardUrlInput = formElement.querySelector('.popup__input_type_url'); //поле ссылки 
 
-// const cardNameValue = cardNameInput.value; // значение из поля названия 
+// const cardNameValue = cardNameInput.value; // значение из поля названия ПЕРЕДАТЬ В CREATECARD (first параметр)
 // const cardUrlValue = cardUrlInput.value;  //значение из поля ссылки 
-
-//  .textContent // добавить новое значение ? 
 
 //    = cardNameValue; // содержимое будет равным значению, которое введено в поле ввода cardNameInput?
 //    = cardUrlValue; 
@@ -137,3 +128,4 @@ formElement.addEventListener('submit', handleFormSubmit);
 // cardList.insertbefore(newCard, cardList.firstChild)
 
 // очистить поле ввода 
+// listener,  втором попапе, new Card надо создать методом createcard - объекты в JS, 
