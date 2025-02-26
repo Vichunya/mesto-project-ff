@@ -79,15 +79,15 @@ function checkEscapeBtn(event, modal) {   //удаление разработч�
 }
 
 // ОТКРЫТИЕ 1 и 2 модальных окон
-const openModal = document.querySelector('.popup_type_edit');
+const openModal = document.querySelector('.popup_type_edit');//попап редактир-я
 const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
-const openModalNewCard = document.querySelector('.popup_type_new-card');
+const openModalNewCard = document.querySelector('.popup_type_new-card');//попап новой карточки
 const addCardBtn = document.querySelector('.profile__add-button'); //кнопка добавления
-const nameTitle = document.querySelector('.profile__title');
-const editInputName = document.querySelector('.popup__input_type_name');
+const nameTitle = document.querySelector('.profile__title'); //Жак-Ив
+const editInputName = document.querySelector('.popup__input_type_name');// поле имя 
 
 editProfileBtn.addEventListener('click', function () {
-  editInputName.value = nameTitle.textContent;
+  editInputName.value = nameTitle.textContent;//зн-е имени поля = знач-ю Жак-Ив (заголовку)
   openPopup(openModal);              // Открытие попапа редактирования
 });
 
@@ -95,24 +95,17 @@ addCardBtn.addEventListener('click', function () {
   openPopup(openModalNewCard);      // Открытие попапа добавления карточки 
 });
 
-
 // Находим форму в DOM
-const formElement = document.querySelector('.popup__form');// Воспользуйтесь методом querySelector()
+const formElement = document.querySelector('.popup__form');
 // Находим поля формы в DOM
-
-const jobInput = formElement.querySelector('.profile__description');
-
-
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
+const jobInput = formElement.querySelector('.profile__description');//Исследователь океана
+// Обработчик «отправки» формы
 function handleFormSubmit(evt) { //вызовется при нажатии submit сохранить
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
-  nameTitle.textContent = editInputName.value;
+  evt.preventDefault(); 
+  nameTitle.textContent = editInputName.value;//значение Жак-Ив = знач-ю имени поля
   openModal.style.display = 'none';
 }
-
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
+// Прикрепляем обработчик к форме, он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
 
 //ФОРМА ДЛЯ ДОБАВЛЕНИЯ КАРТОЧЕК 
