@@ -4,7 +4,7 @@ import { initialCards } from './cards.js';
 
 const cardTemplate = document.getElementById('card-template');
 const content = cardTemplate.content;
-const cardList = document.querySelector('.places__list');
+const cardList = document.querySelector('.places__list'); // контейнер для карточки 
 const modalCard = document.querySelector('.popup_type_image'); // само модальное окно картинки 
 const modalImage = modalCard.querySelector('.popup__image'); // картинка в модальном окне
 
@@ -83,8 +83,11 @@ const openModal = document.querySelector('.popup_type_edit');//попап ред
 const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
 const openModalNewCard = document.querySelector('.popup_type_new-card');//попап новой карточки
 const addCardBtn = document.querySelector('.profile__add-button'); //кнопка добавления
+const formElement = document.querySelector('.popup__form'); // Находим форму в DOM
 const nameTitle = document.querySelector('.profile__title'); //Жак-Ив
 const editInputName = document.querySelector('.popup__input_type_name');// поле имя 
+const jobTitle = document.querySelector('.profile__description');//Исследователь океана
+const editJobname = document.querySelector('.popup__input_type_description');//поле занятие
 
 editProfileBtn.addEventListener('click', function () {
   editInputName.value = nameTitle.textContent;//зн-е имени поля = знач-ю Жак-Ив (заголовку)
@@ -92,16 +95,7 @@ editProfileBtn.addEventListener('click', function () {
   openPopup(openModal);              // Открытие попапа редактирования
 });
 
-addCardBtn.addEventListener('click', function () {
-  openPopup(openModalNewCard);      // Открытие попапа добавления карточки 
-});
-
-// Находим форму в DOM
-const formElement = document.querySelector('.popup__form');
-// Находим поля формы в DOM
-const jobTitle = document.querySelector('.profile__description');//Исследователь океана
-const editJobname = document.querySelector('.popup__input_type_description');//поле занятие
-// Обработчик «отправки» формы
+// Обработчик «отправки» формы для редактирования 
 function handleFormSubmit(evt) { //вызовется при нажатии submit сохранить
   evt.preventDefault(); 
   nameTitle.textContent = editInputName.value;//значение Жак-Ив = знач-ю имени поля
@@ -112,16 +106,27 @@ function handleFormSubmit(evt) { //вызовется при нажатии subm
 formElement.addEventListener('submit', handleFormSubmit);
 
 //ФОРМА ДЛЯ ДОБАВЛЕНИЯ КАРТОЧЕК 
-// const cardNameInput = formElement.querySelector('.popup__input_type_card-name'); //поле названия
-// const cardUrlInput = formElement.querySelector('.popup__input_type_url'); //поле ссылки 
+const cardNameInput = formElement.querySelector('.popup__input_type_card-name'); //поле названия карточки 
+const cardUrlInput = formElement.querySelector('.popup__input_type_url'); //поле ссылки карточки
+const cardNameValue = cardNameInput.value; // значение из поля названия ПЕРЕДАТЬ В CREATECARD (first параметр)
+const cardUrlValue = cardUrlInput.value;  //значение из поля ссылки 
 
-// const cardNameValue = cardNameInput.value; // значение из поля названия ПЕРЕДАТЬ В CREATECARD (first параметр)
-// const cardUrlValue = cardUrlInput.value;  //значение из поля ссылки 
+addCardBtn.addEventListener('click', function () {   //ДОБАВЛЕНИЕ КАРТОЧКИ ПО КЛИКУ
+  openPopup(openModalNewCard);      // Открытие попапа добавления карточки 
+  const newCard = document.createElement('div'); // Создание новой карточки 
+  newCard.classList.add('popup_type_new-card'); // добавление класса новой карточке  
+  // newCard.textContent = 'Новое место'; // название карточки надо ?
+});
 
-//    = cardNameValue; // содержимое будет равным значению, которое введено в поле ввода cardNameInput?
-//    = cardUrlValue; 
+// Обработчик «отправки» формы для добавления карточки 
+function addCardSubmit(evt) { //вызовется при нажатии submit сохранить
+  evt.preventDefault(); 
+  openModal.style.display = 'none';
+  cardList.insertbefore(newCard, cardList.firstChild) //первая в списке 
+  cardNameInput.value = ''; //очистить поле
+  cardUrlInput.value = '';
+}
+// Прикрепляем обработчик к форме, он будет следить за событием “submit” - «отправка»
+formElement.addEventListener('submit', addCardSubmit);
 
-// cardList.insertbefore(newCard, cardList.firstChild)
 
-// очистить поле ввода 
-// listener,  втором попапе, new Card надо создать методом createcard - объекты в JS, 
