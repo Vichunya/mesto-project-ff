@@ -88,6 +88,7 @@ const editInputName = document.querySelector('.popup__input_type_name');// по�
 
 editProfileBtn.addEventListener('click', function () {
   editInputName.value = nameTitle.textContent;//зн-е имени поля = знач-ю Жак-Ив (заголовку)
+  editJobname.value = jobTitle.textContent;//зн-е имени занятие = знач-ю Исследователь
   openPopup(openModal);              // Открытие попапа редактирования
 });
 
@@ -98,11 +99,13 @@ addCardBtn.addEventListener('click', function () {
 // Находим форму в DOM
 const formElement = document.querySelector('.popup__form');
 // Находим поля формы в DOM
-const jobInput = formElement.querySelector('.profile__description');//Исследователь океана
+const jobTitle = document.querySelector('.profile__description');//Исследователь океана
+const editJobname = document.querySelector('.popup__input_type_description');//поле занятие
 // Обработчик «отправки» формы
 function handleFormSubmit(evt) { //вызовется при нажатии submit сохранить
   evt.preventDefault(); 
   nameTitle.textContent = editInputName.value;//значение Жак-Ив = знач-ю имени поля
+  jobTitle.textContent = editJobname.value; //значение Исследователь = знач-ю имени занятие
   openModal.style.display = 'none';
 }
 // Прикрепляем обработчик к форме, он будет следить за событием “submit” - «отправка»
