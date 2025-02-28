@@ -2,14 +2,13 @@ import '../pages/index.css'; // добавьте импорт главного �
 
 import { initialCards } from './cards.js';
 import { createCard } from './components/card.js';
-
+import { openPopup } from './components/modal.js';
+import { closePopup } from './components/modal.js';
 
 const cardList = document.querySelector('.places__list'); // контейнер для карточки 
 const modalCard = document.querySelector('.popup_type_image'); // само модальное окно картинки 
 const modalImage = modalCard.querySelector('.popup__image'); // картинка в модальном окне
 modalCard.classList.add('popup_is-animated');
-
-
 
 initialCards.forEach(cardData => {
   const card = createCard(cardData, deleteCard, likeCard, openModalImage); //вызов
@@ -32,35 +31,6 @@ function openModalImage(event) {           //открытие модальног
   openPopup(modalCard);
 };
 
-const modals = document.querySelectorAll('.popup'); //закрытие вне окна 
-modals.forEach(modal => {
-  window.addEventListener('click', function (event) {
-    if (event.target === modal) {
-      modal.classList.remove('popup_is-opened'); 
-    }
-  });
-
-  const closeBtn = modal.querySelector('.popup__close'); //закрытие по кнопке
-  closeBtn.addEventListener('click', function () {
-    modal.classList.remove('popup_is-opened');
-  });
-
-});
-
-// Открытие модального окна 
-function openPopup(modal) {
-  modal.classList.add('popup_is-opened');
-  window.addEventListener('keydown', (event) => {      //закрытие по клавише escape    
-    checkEscapeBtn(event, modal);
-  });
-}
-
-function checkEscapeBtn(event, modal) {   //удаление разработчика по Esc
-  if (event.key === 'Escape') {          // встроенное св-во объекта, какая клавиша нажата
-    modal.classList.remove('popup_is-opened'); 
-    window.removeEventListener('keydown', checkEscapeBtn);
-  }
-}
 
 // ОТКРЫТИЕ 1 и 2 модальных окон
 const openModal = document.querySelector('.popup_type_edit');//попап редактир-я
@@ -84,10 +54,10 @@ editProfileBtn.addEventListener('click', function () {
 
 // Обработчик «отправки» формы для редактирования 
 function handleFormSubmit(evt) { //вызовется при нажатии submit сохранить
-  evt.preventDefault(); 
+  evt.preventDefault();
   nameTitle.textContent = editInputName.value;//значение Жак-Ив = знач-ю имени поля
   jobTitle.textContent = editJobname.value; //значение Исследователь = знач-ю имени занятие
-  openModal.classList.add('popup_is-opened'); 
+  openModal.classList.add('popup_is-opened');
 }
 // Прикрепляем обработчик к форме, он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
@@ -102,21 +72,21 @@ addCardBtn.addEventListener('click', function () {   //ДОБАВЛЕНИЕ КА
 
 // Обработчик «отправки» формы для добавления карточки 
 function addCardSubmit(evt) { //вызовется при нажатии submit сохранить
-  evt.preventDefault(); 
-  openModalNewCard.classList.add('popup_is-opened'); 
+  evt.preventDefault();
+  openModalNewCard.classList.add('popup_is-opened');
   const cardName = cardNameInput.value;
   const cardUrl = cardUrlInput.value;
   const cardData = {
     name: cardName,
     link: cardUrl,
-};
+  };
   const card = createCard(cardData, deleteCard, likeCard, openModalImage); //вызов
   cardList.insertBefore(card, cardList.firstChild);  //добавляет созданную карточку в контейнер 
-  
+
   cardNameInput.value = ''; //очистить поле
   cardUrlInput.value = '';
 }
 // Прикрепляем обработчик к форме, он будет следить за событием “submit” - «отправка»
-  addForm.addEventListener('submit', addCardSubmit);
+addForm.addEventListener('submit', addCardSubmit);
 
 
