@@ -58,6 +58,7 @@ function handleFormSubmit(evt) { //вызовется при нажатии subm
   nameTitle.textContent = editInputName.value;//значение Жак-Ив = знач-ю имени поля
   jobTitle.textContent = editJobname.value; //значение Исследователь = знач-ю имени занятие
   openModal.classList.add('popup_is-opened');
+  openModal.classList.remove('popup_is-opened'); 
 }
 // Прикрепляем обработчик к форме, он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
@@ -74,6 +75,7 @@ addCardBtn.addEventListener('click', function () {   //ДОБАВЛЕНИЕ КА
 function addCardSubmit(evt) { //вызовется при нажатии submit сохранить
   evt.preventDefault();
   openModalNewCard.classList.add('popup_is-opened');
+  openModalNewCard.classList.remove('popup_is-opened'); 
   const cardName = cardNameInput.value;
   const cardUrl = cardUrlInput.value;
   const cardData = {
