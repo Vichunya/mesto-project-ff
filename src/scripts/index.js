@@ -58,15 +58,17 @@ modals.forEach(modal => {
 
   const closeBtn = modal.querySelector('.popup__close'); //закрытие по кнопке
   closeBtn.addEventListener('click', function () {
-    modal.style.display = 'none';
+    modal.classList.add('popup_is-animated');
+    //modal.style.display = 'none';
   });
 
 });
 
 // закрытие по клавише Escape 
 function openPopup(modal) {
-  modal.style.display = 'flex';  //modal, переиспользовать можно
-  window.addEventListener('keydown', (event) => {      //открытие по клавише escape    
+  //modal.style.display = 'flex';  //modal, переиспользовать можно
+  modal.classList.add('popup_is-opened');
+  window.addEventListener('keydown', (event) => {      //закрытие по клавише escape    
     checkEscapeBtn(event, modal);
   });
 }
@@ -112,7 +114,6 @@ const cardUrlInput = document.querySelector('.popup__input_type_url'); //пол�
 
 addCardBtn.addEventListener('click', function () {   //ДОБАВЛЕНИЕ КАРТОЧКИ ПО КЛИКУ
   openPopup(openModalNewCard);      // Открытие попапа добавления карточки 
-  // newCard.textContent = 'Новое место'; // название карточки надо ?
 });
 
 // Обработчик «отправки» формы для добавления карточки 
