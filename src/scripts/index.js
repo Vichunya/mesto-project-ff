@@ -1,32 +1,15 @@
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
 
 import { initialCards } from './cards.js';
+import { createCard } from './components/card.js';
 
-const cardTemplate = document.getElementById('card-template');
-const content = cardTemplate.content;
+
 const cardList = document.querySelector('.places__list'); // контейнер для карточки 
 const modalCard = document.querySelector('.popup_type_image'); // само модальное окно картинки 
 const modalImage = modalCard.querySelector('.popup__image'); // картинка в модальном окне
 modalCard.classList.add('popup_is-animated');
 
-function createCard(cardData, deleteHandler, likeHandler, openModalImage) {
-  const cardCopy = content.cloneNode(true);
-  const cardImage = cardCopy.querySelector('.card__image'); //из конкретной карточки
-  const cardTitle = cardCopy.querySelector('.card__title');
-  const deleteButton = cardCopy.querySelector('.card__delete-button');
-  const likeButton = cardCopy.querySelector('.card__like-button');
 
-  cardImage.src = cardData.link;
-  cardImage.alt = cardData.name;
-  cardTitle.textContent = cardData.name;  //устанавливает название карточки 
-
-  deleteButton.addEventListener('click', deleteHandler);
-  likeButton.addEventListener('click', likeHandler);
-  cardImage.addEventListener('click', openModalImage);
-
-
-  return cardCopy;
-}
 
 initialCards.forEach(cardData => {
   const card = createCard(cardData, deleteCard, likeCard, openModalImage); //вызов
