@@ -19,3 +19,13 @@ export function createCard(cardData, deleteHandler, likeHandler, openModalImage)
 
     return cardCopy;
 }
+
+export function deleteCard(event) {
+  const listItem = event.target.closest('.places__item');
+  listItem.remove();
+}
+
+export function likeCard(event) {
+  const likeButton = event.target;
+  likeButton.classList.toggle('card__like-button_is-active');
+}

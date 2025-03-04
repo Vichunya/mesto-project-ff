@@ -4,10 +4,13 @@ import { initialCards } from './cards.js';
 import { createCard } from './components/card.js';
 import { openPopup } from './components/modal.js';
 import { closePopup } from './components/modal.js';
+import { deleteCard } from './components/card.js';
+import { likeCard } from './components/card.js';
 
 const cardList = document.querySelector('.places__list'); // контейнер для карточки 
 const modalCard = document.querySelector('.popup_type_image'); // само модальное окно картинки 
 const modalImage = modalCard.querySelector('.popup__image'); // картинка в модальном окне
+const modalCaption = document.querySelector('.popup__caption'); //подпись под картинкой
 modalCard.classList.add('popup_is-animated');
 
 initialCards.forEach(cardData => {
@@ -15,31 +18,24 @@ initialCards.forEach(cardData => {
   cardList.append(card);  //добавляет созданную карточку в контейнер 
 });
 
-function deleteCard(event) {
-  const listItem = event.target.closest('.places__item');
-  listItem.remove();
-}
-
-function likeCard(event) {
-  const likeButton = event.target;
-  likeButton.classList.toggle('card__like-button_is-active');
-}
-
 function openModalImage(event) {           //открытие модального окна с картинкой
   const imageSrc = event.target; // сохраняем элемент, по к-му произошло событие (изображение)
   modalImage.src = imageSrc.src;
+  modalImage.alt = imageSrc.alt; // альт     
+  modalCaption.textContent = imageSrc.alt; //подпись под картинкой  
+
   openPopup(modalCard);
 };
 
 
 // ОТКРЫТИЕ 1 и 2 модальных окон
-const openModal = document.querySelector('.popup_type_edit');//попап редактир-я
-openModal.classList.add('popup_is-animated');
+const openModals = document.querySelector('.popup_type_edit');//попап редактир-я
+openModals.classList.add('popup_is-animated');
 const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
 const openModalNewCard = document.querySelector('.popup_type_new-card');//попап новой карточки
 openModalNewCard.classList.add('popup_is-animated');
 const addCardBtn = document.querySelector('.profile__add-button'); //кнопка добавления
-const formElement = openModal.querySelector('.popup__form'); // Находим форму в DOM
+const formElementEdit = openModals.querySelector('.popup__form'); // Находим форму в DOM
 const addForm = openModalNewCard.querySelector('.popup__form');
 const nameTitle = document.querySelector('.profile__title'); //Жак-Ив
 const editInputName = document.querySelector('.popup__input_type_name');// поле имя 
@@ -49,19 +45,19 @@ const editJobname = document.querySelector('.popup__input_type_description');//�
 editProfileBtn.addEventListener('click', function () {
   editInputName.value = nameTitle.textContent;//зн-е имени поля = знач-ю Жак-Ив (заголовку)
   editJobname.value = jobTitle.textContent;//зн-е имени занятие = знач-ю Исследователь
-  openPopup(openModal);              // Открытие попапа редактирования
+  openPopup(openModals);              // Открытие попапа редактирования
 });
 
 // Обработчик «отправки» формы для редактирования 
-function handleFormSubmit(evt) { //вызовется при нажатии submit сохранить
+function handleFormEditSubmit(evt) { //вызовется при нажатии submit сохранить
   evt.preventDefault();
   nameTitle.textContent = editInputName.value;//значение Жак-Ив = знач-ю имени поля
   jobTitle.textContent = editJobname.value; //значение Исследователь = знач-ю имени занятие
-  openModal.classList.add('popup_is-opened');
-  openModal.classList.remove('popup_is-opened'); 
+  openModals.classList.add('popup_is-opened');
+  openModals.classList.remove('popup_is-opened'); 
 }
-// Прикрепляем обработчик к форме, он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', handleFormSubmit);
+// Прикрепляем обработчик к форме редактирования, он будет следить за событием “submit” - «отправка»
+formElementEdit.addEventListener('submit', handleFormEditSubmit);
 
 //ФОРМА ДЛЯ ДОБАВЛЕНИЯ КАРТОЧЕК 
 const cardNameInput = document.querySelector('.popup__input_type_card-name'); //поле названия карточки 
