@@ -1,15 +1,14 @@
 // Открытие модального окна 
 export function openPopup(modal) {
     modal.classList.add('popup_is-opened');
-    window.addEventListener('keydown', (event) => {      //закрытие по клавише escape    
-        checkEscapeBtn(event, modal);
-    });
+    document.addEventListener('keydown', closePopupEsc);    //закрытие по клавише escape    
 }
 
-function checkEscapeBtn(event, modal) {   //удаление разработчика по Esc
+function closePopupEsc(event) {   //удаление разработчика по Esc
     if (event.key === 'Escape') {          // встроенное св-во объекта, какая клавиша нажата
+        const modal = document.querySelector('.popup_is-opened');
         modal.classList.remove('popup_is-opened');
-        window.removeEventListener('keydown', checkEscapeBtn);
+        document.removeEventListener('keydown', closePopupEsc);
     }
 }
 
