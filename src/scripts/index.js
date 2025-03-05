@@ -27,15 +27,28 @@ function openModalImage(event) {           //открытие модальног
   openPopup(modalCard);
 };
 
+const modals = document.querySelectorAll('.popup'); //закрытие вне окна
+modals.forEach(modal => {
+    modal.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            closePopup();
+        }
+    });
+
+    const closeBtn = modal.querySelector('.popup__close'); //закрытие по кнопке
+    closeBtn.addEventListener('click', function () {
+        closePopup();
+    });
+});
 
 // ОТКРЫТИЕ 1 и 2 модальных окон
-const openModals = document.querySelector('.popup_type_edit');//попап редактир-я
-openModals.classList.add('popup_is-animated');
+const profilePopup = document.querySelector('.popup_type_edit');//попап редактир-я
+profilePopup.classList.add('popup_is-animated');
 const editProfileBtn = document.querySelector('.profile__edit-button'); //кнопка редактирования
 const openModalNewCard = document.querySelector('.popup_type_new-card');//попап новой карточки
 openModalNewCard.classList.add('popup_is-animated');
 const addCardBtn = document.querySelector('.profile__add-button'); //кнопка добавления
-const formElementEdit = openModals.querySelector('.popup__form'); // Находим форму в DOM
+const profileForm = profilePopup.querySelector('.popup__form'); // Находим форму в DOM
 const addForm = openModalNewCard.querySelector('.popup__form');
 const nameTitle = document.querySelector('.profile__title'); //Жак-Ив
 const editInputName = document.querySelector('.popup__input_type_name');// поле имя 
@@ -45,19 +58,18 @@ const editJobname = document.querySelector('.popup__input_type_description');//�
 editProfileBtn.addEventListener('click', function () {
   editInputName.value = nameTitle.textContent;//зн-е имени поля = знач-ю Жак-Ив (заголовку)
   editJobname.value = jobTitle.textContent;//зн-е имени занятие = знач-ю Исследователь
-  openPopup(openModals);              // Открытие попапа редактирования
+  openPopup(profilePopup);              // Открытие попапа редактирования
 });
 
 // Обработчик «отправки» формы для редактирования 
-function handleFormEditSubmit(evt) { //вызовется при нажатии submit сохранить
+function handleProfileFormSubmit(evt) { //вызовется при нажатии submit сохранить
   evt.preventDefault();
   nameTitle.textContent = editInputName.value;//значение Жак-Ив = знач-ю имени поля
   jobTitle.textContent = editJobname.value; //значение Исследователь = знач-ю имени занятие
-  openModals.classList.add('popup_is-opened');
-  openModals.classList.remove('popup_is-opened'); 
+  closePopup();
 }
 // Прикрепляем обработчик к форме редактирования, он будет следить за событием “submit” - «отправка»
-formElementEdit.addEventListener('submit', handleFormEditSubmit);
+profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 //ФОРМА ДЛЯ ДОБАВЛЕНИЯ КАРТОЧЕК 
 const cardNameInput = document.querySelector('.popup__input_type_card-name'); //поле названия карточки 
@@ -70,8 +82,7 @@ addCardBtn.addEventListener('click', function () {   //ДОБАВЛЕНИЕ КА
 // Обработчик «отправки» формы для добавления карточки 
 function addCardSubmit(evt) { //вызовется при нажатии submit сохранить
   evt.preventDefault();
-  openModalNewCard.classList.add('popup_is-opened');
-  openModalNewCard.classList.remove('popup_is-opened'); 
+  closePopup();
   const cardName = cardNameInput.value;
   const cardUrl = cardUrlInput.value;
   const cardData = {

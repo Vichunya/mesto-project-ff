@@ -17,17 +17,5 @@ export function closePopup() {
     document.removeEventListener('keydown', closePopupEsc);
 }
 
-const modals = document.querySelectorAll('.popup'); //закрытие вне окна
-modals.forEach(modal => {
-    window.addEventListener('click', function (event) {
-        if (event.target === modal) {
-            closePopup();
-        }
-    });
 
-    const closeBtn = modal.querySelector('.popup__close'); //закрытие по кнопке
-    closeBtn.addEventListener('click', function () {
-        closePopup();
-    });
-});
 
