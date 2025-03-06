@@ -11,7 +11,7 @@ const cardList = document.querySelector('.places__list'); // контейнер 
 const modalCard = document.querySelector('.popup_type_image'); // само модальное окно картинки 
 const modalImage = modalCard.querySelector('.popup__image'); // картинка в модальном окне
 const modalCaption = document.querySelector('.popup__caption'); //подпись под картинкой
-modalCard.classList.add('popup_is-animated');
+modalCard.classList.add('popup_is-animated'); // visibility: hidden 
 
 initialCards.forEach(cardData => {
   const card = createCard(cardData, deleteCard, likeCard, openModalImage); //вызов

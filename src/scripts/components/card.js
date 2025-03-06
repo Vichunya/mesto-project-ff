@@ -21,11 +21,11 @@ export function createCard(cardData, deleteHandler, likeHandler, openModalImage)
 }
 
 export function deleteCard(event) {
-  const listItem = event.target.closest('.places__item');
+  const listItem = event.target.closest('.places__item'); //будет искать карточку, чья кнопка удаления нажата 
   listItem.remove();
 }
 
 export function likeCard(event) {
-  const likeButton = event.target;
+  const likeButton = event.target; //event.target — это кнопка лайка 
   likeButton.classList.toggle('card__like-button_is-active');
 }
