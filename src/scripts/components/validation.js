@@ -1,6 +1,7 @@
 // Вынесем форму и инпуты 
 //const formElement = document.querySelector('.popup__form'); // форма 
-//const formInput = formElement.querySelector('.popup__input'); //инпуты 
+//const inputElement = formElement.querySelector('.popup__input'); //инпуты 
+// const buttonElement = document.querySelector('.popup__button') // кнопка отправки 
 
 // локальная область видимости formElement, inputElement 
 const isValid = (formElement, inputElement) => {
@@ -34,7 +35,7 @@ const hideInputError = (formElement, inputElement) => {
 const setEventListeners = (formElement) => {
     // Находим все поля внутри формы,
     // сделаем из них массив методом Array.from
-    const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   
     // Обойдём все элементы полученной коллекции
     inputList.forEach((inputElement) => {
@@ -46,6 +47,23 @@ const setEventListeners = (formElement) => {
       });
     });
   };
+
+  // обработчики для всех форм 
+  const enableValidation = () => {
+    // Найдём все формы с указанным классом в DOM,
+    // сделаем из них массив методом Array.from
+    const formList = Array.from(document.querySelectorAll('.popup__form'));
+  
+    // Переберём полученную коллекцию
+    formList.forEach((formElement) => {
+      // Для каждой формы вызовем функцию setEventListeners,
+      // передав ей элемент формы
+      setEventListeners(formElement);
+    });
+  };
+  
+  // Вызовем функцию
+  enableValidation();
 
 
 // включение валидации вызовом enableValidation
@@ -59,6 +77,52 @@ const setEventListeners = (formElement) => {
 //     inputErrorClass: 'popup__input_type_error',
 //     errorClass: 'popup__error_visible'
 //   });
+
+// КНОПКА ОТПРАВКИ ФОРМЫ 
+
+// Функция принимает массив полей           //inputList - все поля, inputElement - все инпуты 
+// const hasInvalidInput = (inputList) => {   
+//     // проходим по этому массиву методом some
+//     return inputList.some((inputElement) => {
+//           // Если поле не валидно, колбэк вернёт true
+//       // Обход массива прекратится и вся функция
+//       // hasInvalidInput вернёт true
+  
+//       return !inputElement.validity.valid;
+//     })
+//   };
+//   // Функция принимает массив полей ввода
+// // и элемент кнопки, состояние которой нужно менять
+// const toggleButtonState = (inputList, buttonElement) => {
+//     // Если есть хотя бы один невалидный инпут
+//     if (hasInvalidInput(inputList)) {
+//       // сделай кнопку неактивной
+//           buttonElement.disabled = true;
+//       buttonElement.classList.add('form__submit_inactive');
+//     } else {
+//           // иначе сделай кнопку активной
+//           buttonElement.disabled = false;
+//       buttonElement.classList.remove('form__submit_inactive');
+//     }
+//   };
+//   const setEventListeners = (formElement) => {
+//     // Найдём все поля формы и сделаем из них массив
+//   const inputList = Array.from(formElement.querySelectorAll(`.form__input`));
+//     // Найдём в текущей форме кнопку отправки
+//   const buttonElement = formElement.querySelector('.form__submit');
+//     // Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
+//     toggleButtonState(inputList, buttonElement);
+
+//   inputList.forEach((inputElement) => {
+//     inputElement.addEventListener('input', () => {
+//       isValid(formElement, inputElement);
+
+//             // Вызовем toggleButtonState и передадим ей массив полей и кнопку
+//       toggleButtonState(inputList, buttonElement);
+//     });
+//   });
+// };
+
 
 // "form" novalidate  - вставаить в html
 // .form__input_type_error {
