@@ -6,6 +6,7 @@ import { openPopup } from './components/modal.js';
 import { closePopup } from './components/modal.js';
 import { deleteCard } from './components/card.js';
 import { likeCard } from './components/card.js';
+import { isValid } from './components/validation.js';
 
 const cardList = document.querySelector('.places__list'); // контейнер для карточки 
 const modalCard = document.querySelector('.popup_type_image'); // само модальное окно картинки 
@@ -98,4 +99,34 @@ function addCardSubmit(evt) { //вызовется при нажатии submit 
 // Прикрепляем обработчик к форме, он будет следить за событием “submit” - «отправка»
 addForm.addEventListener('submit', addCardSubmit);
 
+const setEventListeners = (formElement) => {
+  // Находим все поля внутри формы,
+  // сделаем из них массив методом Array.from
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
 
+  // Обойдём все элементы полученной коллекции
+  inputList.forEach((inputElement) => {
+    // каждому полю добавим обработчик события input
+    inputElement.addEventListener('input', () => {
+      // Внутри колбэка вызовем isValid,
+      // передав ей форму и проверяемый элемент
+      isValid(formElement, inputElement)  // перед ней д вызвать ф-ю регулярного выр-я, написать в инпут месседж
+    });
+  });
+};
+
+const enableValidation = () => {
+  // Найдём все формы с указанным классом в DOM,
+  // сделаем из них массив методом Array.from
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+
+  // Переберём полученную коллекцию
+  formList.forEach((formElement) => {
+    // Для каждой формы вызовем функцию setEventListeners,
+    // передав ей элемент формы
+    setEventListeners(formElement);
+  });
+};
+
+// Вызовем функцию
+enableValidation(); // смотрит наличие всех форм 
