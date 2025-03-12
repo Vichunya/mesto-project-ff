@@ -108,6 +108,20 @@ const setEventListeners = (formElement) => {
   inputList.forEach((inputElement) => {
     // каждому полю добавим обработчик события input
     inputElement.addEventListener('input', () => {
+      // event.preventDefault(); зачеркивает 
+      // Ф-я регулярного выражения:
+      const regex = /^[a-zA-Zа-яА-ЯёЁ\s-]+$/;
+      const nameInput = document.getElementById('name-input').value;
+      const descriptionInput = document.getElementById('description-input').value;
+      const placeNameInput = document.getElementById('place-name-input').value;
+
+      if (!regex.test(nameInput) || !regex.test(descriptionInput) || !regex.test(placeNameInput)) {
+        // если хотя бы 1 поле неверно 
+        errorMessage.textContent = "Оба поля могут содержать только латинские и кириллические буквы, знаки дефиса и пробелы.";
+      } else {
+        // все поля верные
+        errorMessage.textContent = "";
+      };
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
       isValid(formElement, inputElement)  // перед ней надо вызвать ф-ю регулярного выр-я, написать в инпут месседж
