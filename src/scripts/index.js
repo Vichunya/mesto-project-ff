@@ -110,7 +110,7 @@ const setEventListeners = (formElement) => {
     inputElement.addEventListener('input', () => {
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
-      isValid(formElement, inputElement)  // перед ней д вызвать ф-ю регулярного выр-я, написать в инпут месседж
+      isValid(formElement, inputElement)  // перед ней надо вызвать ф-ю регулярного выр-я, написать в инпут месседж
     });
   });
 };

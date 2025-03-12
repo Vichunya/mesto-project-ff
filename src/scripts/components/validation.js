@@ -18,7 +18,8 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     // Находим элемент ошибки внутри самой функции
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);//поля с ошибкой
 
-    inputElement.classList.add('form__input_type_error');//создать и добавить в папку попап форм
+    // inputElement.classList.add('form__input_type_error');//создать и добавить в папку попап форм
+    inputElement.classList.add('form__input-error'); // этот класс, а не на 21 строке ? 
     errorElement.textContent = errorMessage; // Вы пропустили это поле
     errorElement.classList.add('form__input-error_active');// создать и добавить в папку попап форм
 };
@@ -28,7 +29,7 @@ const hideInputError = (formElement, inputElement) => {
     // Находим элемент ошибки
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-    inputElement.classList.remove('form__input_type_error');
+    inputElement.classList.remove('form__input-error');
     errorElement.classList.remove('form__input-error_active');
     errorElement.textContent = '';
 };
