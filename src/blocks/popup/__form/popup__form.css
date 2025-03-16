@@ -2,20 +2,17 @@
   margin-top: 27px;
 }
 
-.form__input-error {
-  border-bottom-color:red; 
-}
-/* popup__input:invalid {border-bottom-color:red; 
-} */
-
 .form__input-error_active {
   color: red;
+  font-size: 12px;
 }
 
-.form__submit_inactive:disabled {
-
+.popup__button:hover {
+  background-color: rgba(0, 0, 0, 0.8); 
+  color: #ffffff; 
 }
 
-popup__button:hover {
-  
+.form__submit_inactive {   /* кнопка неактивна */
+  background-color: rgba(0, 0, 0, 0.15);
+  cursor: not-allowed;
 }

@@ -99,38 +99,25 @@ function addCardSubmit(evt) { //вызовется при нажатии submit 
 // Прикрепляем обработчик к форме, он будет следить за событием “submit” - «отправка»
 addForm.addEventListener('submit', addCardSubmit);
 
-const setEventListeners = (formElement) => {
-  // Находим все поля внутри формы,
-  // сделаем из них массив методом Array.from
+const setEventListeners = (formElement) => {      //formElement - форма 
+  // Находим все поля внутри формы
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-
+  const buttonElement = formElement.querySelector('.popup__button') // кнопка отправки 
   // Обойдём все элементы полученной коллекции
-  inputList.forEach((inputElement) => {
+  inputList.forEach((inputElement) => {          //inputElement - инпут 
     // каждому полю добавим обработчик события input
-    inputElement.addEventListener('input', () => {
-      // event.preventDefault(); зачеркивает 
-      // Ф-я регулярного выражения:
-      const regex = /^[a-zA-Zа-яА-ЯёЁ\s-]+$/;
-      const nameInput = document.getElementById('name-input').value;
-      const descriptionInput = document.getElementById('description-input').value;
-      const placeNameInput = document.getElementById('place-name-input').value;
-
-      if (!regex.test(nameInput) || !regex.test(descriptionInput) || !regex.test(placeNameInput)) {
-        // если хотя бы 1 поле неверно 
-        errorMessage.textContent = "Оба поля могут содержать только латинские и кириллические буквы, знаки дефиса и пробелы.";
-      } else {
-        // все поля верные
-        errorMessage.textContent = "";
-      };
+    inputElement.addEventListener('input', () => { //Навесили на все инпуты обработчик 
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
-      isValid(formElement, inputElement)  // перед ней надо вызвать ф-ю регулярного выр-я, написать в инпут месседж
+      
+      isValid(formElement, inputElement);  // перед ней надо вызвать ф-ю регулярного выр-я, написать в инпут месседж
+      toggleButtonState(inputList, buttonElement);
     });
   });
 };
 
 const enableValidation = () => {
-  // Найдём все формы с указанным классом в DOM,
+  // Найдём все формы 
   // сделаем из них массив методом Array.from
   const formList = Array.from(document.querySelectorAll('.popup__form'));
 
@@ -144,3 +131,31 @@ const enableValidation = () => {
 
 // Вызовем функцию
 enableValidation(); // смотрит наличие всех форм 
+
+// Функция принимает массив полей ввода              // Блокировка кнопки 
+// и элемент кнопки, состояние которой нужно менять
+const toggleButtonState = (inputList, buttonElement) => {
+  // Если есть хотя бы один невалидный инпут
+  if (hasInvalidInput(inputList)) { //hasInvalidInput вызывается на 138
+    // сделай кнопку неактивной
+        buttonElement.disabled = true;
+   buttonElement.classList.add('form__submit_inactive');
+  } else {
+        // иначе сделай кнопку активной
+        buttonElement.disabled = false;
+   buttonElement.classList.remove('form__submit_inactive');
+  }
+};
+
+// Функция принимает массив полей
+const hasInvalidInput = (inputList) => {
+  // проходим по этому массиву методом some
+  console.log(inputList);
+  return inputList.some((inputElement) => {
+        // Если поле не валидно, колбэк вернёт true
+    // Обход массива прекратится и вся функция
+    // hasInvalidInput вернёт true
+
+    return !inputElement.validity.valid;
+  })
+};
