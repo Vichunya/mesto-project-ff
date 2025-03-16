@@ -159,3 +159,29 @@ const hasInvalidInput = (inputList) => {
     return !inputElement.validity.valid;
   })
 };
+
+//const clearValidation = (formElement, enableValidation){ // очищает ошибки валидации формы и делает кнопку неактивной 
+//const inputList = formElement.querySelectorAll(config.inputSelector);
+//const submitButton = formElement.querySelector(config.submitButtonSelector);
+
+// inputList.forEach((inputElement) => {
+ // delete inputElement.dataset.error; // удаляет сообщение об ошибке 
+ // inputElement.classList.remove(config.inputErrorClass); // удаляет класс ошибки
+// });
+
+//if (submitButton) {
+  //submitButton.disabled = true; // Делаем кнопку неактивной
+//}
+// }                 
+
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
+// очистка ошибок валидации вызовом clearValidation
+clearValidation(profileForm, validationConfig);
