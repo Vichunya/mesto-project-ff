@@ -99,7 +99,7 @@ function addCardSubmit(evt) { //вызовется при нажатии submit 
 // Прикрепляем обработчик к форме, он будет следить за событием “submit” - «отправка»
 addForm.addEventListener('submit', addCardSubmit);
 
-const setEventListeners = (formElement) => {      //formElement - форма 
+const setEventListeners = (formElement) => {  //formElement - форма //эта ф-я ищет все инпуты
   // Находим все поля внутри формы
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   const buttonElement = formElement.querySelector('.popup__button') // кнопка отправки 
@@ -110,13 +110,25 @@ const setEventListeners = (formElement) => {      //formElement - форма
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
       
+validateSymbols(inputElement);
+
       isValid(formElement, inputElement);  // перед ней надо вызвать ф-ю регулярного выр-я, написать в инпут месседж
       toggleButtonState(inputList, buttonElement);
     });
   });
 };
 
-const enableValidation = () => {
+function validateSymbols(inputElement) {
+ const namePattern = /^[a-zA-Zа-яА-ЯёЁ\- ]+$/;
+ if (!namePattern.test(inputElement.value)){ 
+  console.log('регулярное выражение не проверилось');
+ inputElement.setCustomValidity('Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы');
+ 
+};
+ 
+}
+
+const enableValidation = () => {  //ищет все формы 
   // Найдём все формы 
   // сделаем из них массив методом Array.from
   const formList = Array.from(document.querySelectorAll('.popup__form'));
@@ -140,6 +152,7 @@ const toggleButtonState = (inputList, buttonElement) => {
     // сделай кнопку неактивной
         buttonElement.disabled = true;
    buttonElement.classList.add('form__submit_inactive');
+   buttonElement.classList.remove('popup__button_active');
   } else {
         // иначе сделай кнопку активной
         buttonElement.disabled = false;
@@ -174,14 +187,3 @@ const hasInvalidInput = (inputList) => {
 //}
 // }                 
 
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
-// очистка ошибок валидации вызовом clearValidation
-clearValidation(profileForm, validationConfig);

@@ -7,11 +7,6 @@
   font-size: 12px;
 }
 
-.popup__button:hover {
-  background-color: rgba(0, 0, 0, 0.8); 
-  color: #ffffff; 
-}
-
 .form__submit_inactive {   /* кнопка неактивна */
   background-color: rgba(0, 0, 0, 0.15);
   cursor: not-allowed;

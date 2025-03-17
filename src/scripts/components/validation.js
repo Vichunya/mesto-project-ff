@@ -27,7 +27,6 @@ const hideInputError = (formElement, inputElement) => {
     // Находим элемент ошибки
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-    inputElement.classList.remove('form__input-error'); //эту строку удалить ? 
     errorElement.classList.remove('form__input-error_active');
     errorElement.textContent = '';
 };
