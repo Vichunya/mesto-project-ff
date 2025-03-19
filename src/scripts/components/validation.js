@@ -20,13 +20,15 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 
     errorElement.textContent = errorMessage; // Вы пропустили это поле
     errorElement.classList.add('form__input-error_active');// создать и добавить в папку попап форм
+    inputElement.classList.add('popup__input_invalid');
 };
 
 // ф-я скрытия ошибки 
-const hideInputError = (formElement, inputElement) => {
+export const hideInputError = (formElement, inputElement) => {
     // Находим элемент ошибки
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
+    inputElement.classList.remove('popup__input_invalid');
     errorElement.classList.remove('form__input-error_active');
     errorElement.textContent = '';
 };

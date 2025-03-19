@@ -14,7 +14,7 @@
   margin-bottom: 0;
 }
 
-.popup__input:invalid {
+.popup__input_invalid {
   border-bottom-color:red; 
 }
 
