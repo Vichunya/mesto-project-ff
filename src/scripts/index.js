@@ -99,10 +99,10 @@ function addCardSubmit(evt) { //вызовется при нажатии submit 
 // Прикрепляем обработчик к форме, он будет следить за событием “submit” - «отправка»
 addForm.addEventListener('submit', addCardSubmit);
 
-const setEventListeners = (formElement) => {  //formElement - форма //эта ф-я ищет все инпуты
+const setEventListeners = (formElement, settings) => {  //formElement - форма //эта ф-я ищет все инпуты
   // Находим все поля внутри формы
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const buttonElement = formElement.querySelector('.popup__button') // кнопка отправки 
+  const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+  const buttonElement = formElement.querySelector(settings.submitButtonSelector) // кнопка отправки 
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {          //inputElement - инпут 
     // каждому полю добавим обработчик события input
@@ -128,21 +128,30 @@ function validateSymbols(inputElement) {
  
 }
 
-const enableValidation = () => {  //ищет все формы 
+const enableValidation = (settings) => {  //ищет все формы 
   // Найдём все формы 
   // сделаем из них массив методом Array.from
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  const formList = Array.from(document.querySelectorAll(settings.formSelector));
 
   // Переберём полученную коллекцию
   formList.forEach((formElement) => {
     // Для каждой формы вызовем функцию setEventListeners,
     // передав ей элемент формы
-    setEventListeners(formElement);
+    setEventListeners(formElement, settings); //setting - это псевдоним
   });
 };
 
+const enableValidationObject = {
+  formSelector:'.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
 // Вызовем функцию
-enableValidation(); // смотрит наличие всех форм 
+enableValidation(enableValidationObject); // смотрит наличие всех форм 
 
 // Функция принимает массив полей ввода              // Блокировка кнопки 
 // и элемент кнопки, состояние которой нужно менять
