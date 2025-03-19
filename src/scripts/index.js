@@ -117,7 +117,9 @@ const setEventListeners = (formElement, settings) => {  //formElement - форм
       console.log(inputElement.dataset);
       if (inputElement.dataset.errorMessage) {
         validateSymbols(inputElement); //ф-я регулярного выражения 
-      }
+      } //else if (inputElement.value.trim() === "") {
+        //inputElement.setCustomValidity("Вы пропустили это поле");
+      //}
 
       isValid(formElement, inputElement);  // перед ней надо вызвать ф-ю регулярного выр-я, написать в инпут месседж
       toggleButtonState(inputList, buttonElement);
@@ -131,16 +133,20 @@ function validateSymbols(inputElement) {
     console.log('регулярное выражение не проверилось');
     inputElement.setCustomValidity('Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы');
   };
+  //else {         
+    //inputElement.setCustomValidity("");
+  //};
+  
 }
 
-const enableValidation = (settings) => {  //ищет все формы 
+const enableValidation = (settings) => {  //ищет все формы // Вызов setEventListeners
   // Найдём все формы 
   // сделаем из них массив методом Array.from
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
 
   // Переберём полученную коллекцию
   formList.forEach((formElement) => {
-    // Для каждой формы вызовем функцию setEventListeners,
+    // Для каждой формы ВЫЗОВЕМ функцию setEventListeners, 
     // передав ей элемент формы
     setEventListeners(formElement, settings); //settings - это псевдоним
   });
@@ -193,7 +199,7 @@ const clearValidation = (formElement, settings) => { // очищает ошиб�
   const submitButton = formElement.querySelector(settings.submitButtonSelector);
 
   inputList.forEach((inputElement) => {
-    //delete inputElement.dataset.error; // удаляет сообщение об ошибке 
+    delete inputElement.dataset.error; // удаляет сообщение об ошибке 
     hideInputError(formElement, inputElement);
     console.log(inputElement.classList);
   });
