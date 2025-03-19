@@ -19,8 +19,8 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);//поля с ошибкой
 
     errorElement.textContent = errorMessage; // Вы пропустили это поле
-    errorElement.classList.add('form__input-error_active');// создать и добавить в папку попап форм
-    inputElement.classList.add('popup__input_invalid');
+    errorElement.classList.add('form__input-error_active');//красный цвет текста ошибки
+    inputElement.classList.add('popup__input_invalid'); //красное подчеркивание
 };
 
 // ф-я скрытия ошибки 

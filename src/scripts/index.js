@@ -105,7 +105,7 @@ addForm.addEventListener('submit', addCardSubmit);
 
 const setEventListeners = (formElement, settings) => {  //formElement - форма //эта ф-я ищет все инпуты
   // Находим все поля внутри формы
-  const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+  const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector)); //инпуты
   const buttonElement = formElement.querySelector(settings.submitButtonSelector) // кнопка отправки 
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {          //inputElement - инпут 
@@ -113,11 +113,11 @@ const setEventListeners = (formElement, settings) => {  //formElement - форм
     inputElement.addEventListener('input', () => { //Навесили на все инпуты обработчик 
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
-      //проверяем есть ли в инпутэррор такой атрибут
+      // проверяем, есть ли значение в data-error-message 
       console.log(inputElement.dataset);
-      if(inputElement.dataset.errorMessage){
-        validateSymbols(inputElement);
-      } 
+      if (inputElement.dataset.errorMessage) {
+        validateSymbols(inputElement); //ф-я регулярного выражения 
+      }
 
       isValid(formElement, inputElement);  // перед ней надо вызвать ф-ю регулярного выр-я, написать в инпут месседж
       toggleButtonState(inputList, buttonElement);
@@ -130,9 +130,7 @@ function validateSymbols(inputElement) {
   if (!namePattern.test(inputElement.value)) {
     console.log('регулярное выражение не проверилось');
     inputElement.setCustomValidity('Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы');
-
   };
-
 }
 
 const enableValidation = (settings) => {  //ищет все формы 
@@ -144,7 +142,7 @@ const enableValidation = (settings) => {  //ищет все формы
   formList.forEach((formElement) => {
     // Для каждой формы вызовем функцию setEventListeners,
     // передав ей элемент формы
-    setEventListeners(formElement, settings); //setting - это псевдоним
+    setEventListeners(formElement, settings); //settings - это псевдоним
   });
 };
 
@@ -164,7 +162,7 @@ enableValidation(enableValidationObject); // смотрит наличие вс�
 // и элемент кнопки, состояние которой нужно менять
 const toggleButtonState = (inputList, buttonElement) => {
   // Если есть хотя бы один невалидный инпут
-  if (hasInvalidInput(inputList)) { //hasInvalidInput вызывается на 138
+  if (hasInvalidInput(inputList)) {      //hasInvalidInput вызывается на 138 ? 
     // сделай кнопку неактивной
     buttonElement.disabled = true;
     buttonElement.classList.add('form__submit_inactive');
@@ -190,18 +188,18 @@ const hasInvalidInput = (inputList) => {
 };
 
 const clearValidation = (formElement, settings) => { // очищает ошибки валидации формы и делает кнопку неактивной 
-  const inputList = formElement.querySelectorAll(settings.inputSelector);
+  const inputList = formElement.querySelectorAll(settings.inputSelector); //инпуты 
   console.log(inputList);
   const submitButton = formElement.querySelector(settings.submitButtonSelector);
 
   inputList.forEach((inputElement) => {
-    // delete inputElement.dataset.error; // удаляет сообщение об ошибке 
+    //delete inputElement.dataset.error; // удаляет сообщение об ошибке 
     hideInputError(formElement, inputElement);
     console.log(inputElement.classList);
   });
 
-  //if (submitButton) {
-  //submitButton.disabled = true; // Делаем кнопку неактивной
-  //}
+  if (submitButton) {
+    submitButton.disabled = true; // Делаем кнопку неактивной
+  }
 }
 

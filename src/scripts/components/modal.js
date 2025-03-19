@@ -4,7 +4,7 @@ export function openPopup(modal) {
     document.addEventListener('keydown', closePopupEsc);    //закрытие по клавише escape    
 }                                                        // keydown - нажатие по клавиатуре
 
-function closePopupEsc(event) {   //удаление разработчика по Esc
+function closePopupEsc(event) {   
     if (event.key === 'Escape') {          // встроенное св-во объекта, какая клавиша нажата
         closePopup();
     }
