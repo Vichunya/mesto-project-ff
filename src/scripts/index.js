@@ -118,10 +118,13 @@ const setEventListeners = (formElement, settings) => {  //formElement - форм
       //const stroka = 'word.lenght';
       console.log('!!!!!!!!');
       //console.log(stroka.length);
-      console.log(inputElement.value.length > 2 );
+      console.log(inputElement.value.length > 2);
       if (inputElement.dataset.errorMessage && inputElement.value.length >= 2) {
         validateSymbols(inputElement); //ф-я регулярного выражения 
-      } 
+      }
+      else {
+        inputElement.setCustomValidity("");
+      }
       isValid(formElement, inputElement);  // перед ней надо вызвать ф-ю регулярного выр-я, написать в инпут месседж
       toggleButtonState(inputList, buttonElement);
     });
@@ -133,10 +136,7 @@ function validateSymbols(inputElement) {
   if (!namePattern.test(inputElement.value)) {
     console.log('регулярное выражение не проверилось');
     inputElement.setCustomValidity(inputElement.dataset.errorMessage);
-  };
-  //else {         
-    //inputElement.setCustomValidity("");
-  //};
+  }
   
 }
 
