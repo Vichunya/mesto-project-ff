@@ -114,13 +114,13 @@ const setEventListeners = (formElement, settings) => {  //formElement - форм
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
       // проверяем, есть ли значение в data-error-message 
-      console.log(inputElement.dataset);
-      if (inputElement.dataset.errorMessage) {
+      //const stroka = 'word.lenght';
+      console.log('!!!!!!!!');
+      //console.log(stroka.length);
+      console.log(inputElement.value.length > 2 );
+      if (inputElement.dataset.errorMessage && inputElement.value.length >= 2) {
         validateSymbols(inputElement); //ф-я регулярного выражения 
-      } //else if (inputElement.value.trim() === "") {
-        //inputElement.setCustomValidity("Вы пропустили это поле");
-      //}
-
+      } 
       isValid(formElement, inputElement);  // перед ней надо вызвать ф-ю регулярного выр-я, написать в инпут месседж
       toggleButtonState(inputList, buttonElement);
     });
@@ -131,7 +131,7 @@ function validateSymbols(inputElement) {
   const namePattern = /^[a-zA-Zа-яА-ЯёЁ\- ]+$/;
   if (!namePattern.test(inputElement.value)) {
     console.log('регулярное выражение не проверилось');
-    inputElement.setCustomValidity('Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы');
+    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
   };
   //else {         
     //inputElement.setCustomValidity("");
