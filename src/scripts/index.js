@@ -60,6 +60,7 @@ const editJobname = document.querySelector('.popup__input_type_description');//�
 editProfileBtn.addEventListener('click', function () {
   editInputName.value = nameTitle.textContent;//зн-е имени поля = знач-ю Жак-Ив (заголовку)
   editJobname.value = jobTitle.textContent;//зн-е имени занятие = знач-ю Исследователь
+  clearValidation(profilePopup, enableValidationObject);
   openPopup(profilePopup);              // Открытие попапа редактирования
 });
 

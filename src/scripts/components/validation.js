@@ -31,5 +31,6 @@ export const hideInputError = (formElement, inputElement) => {
     inputElement.classList.remove('popup__input_invalid');
     errorElement.classList.remove('form__input-error_active');
     errorElement.textContent = '';
+    inputElement.setCustomValidity('');
 };
 
